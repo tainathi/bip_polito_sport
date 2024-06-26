@@ -1,0 +1,33 @@
+{
+    "name":"PoliTO Sport BIP",
+    "shrot_name":"PoliTO",
+    "start_url":".",
+    "display":"standalone",
+    "description":"App createad for collecting sensor data from smartphone using PhyPhox",
+    "orientation":"natural",
+    "prefer_related_applications":false,
+    "icons":[
+        {
+            "srt":"icons/icon-192.png",
+            "sizes":"192x192",
+            "type":"image/png"
+        },
+        {
+            "srt":"icons/icon-512.png",
+            "sizes":"512x512",
+            "type":"image/png"
+        },
+        {
+            "srt":"icons/icon-maskable-192.png",
+            "sizes":"192x192",
+            "type":"image/png",
+            "purpose":"maskable"
+        },
+        {
+            "srt":"icons/icon-maskable-512.png",
+            "sizes":"512x512",
+            "type":"image/png",
+            "purpose":"maskable"
+        }
+    ]
+}
