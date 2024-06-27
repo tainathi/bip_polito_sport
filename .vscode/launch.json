@@ -9,5 +9,8 @@
             "program": "retrieving_smartphone_data/main.py",
             "console": "integratedTerminal"
         }
-    ]
+    ],
+    "settings": {
+        "python.terminal.activateEnvInCurrentTerminal": true
+    }
 }
