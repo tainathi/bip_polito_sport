@@ -114,8 +114,8 @@ class PhyPhoxFigure(MatplotlibChart):
             t3 = +2.0 * (w * z + x * y)
             t4 = +1.0 - 2.0 * (ysqr + z * z)
             Z = np.degrees(np.arctan2(t3, t4))    
-            # print(f"x={Y-self.offset_z}, y={X-self.offset_y}, offsetX={self.offset_x}, offsetY={self.offset_y}")
-            return [X-self.offset_y, Y-self.offset_z, Z-self.offset_x] 
+            # print(f"x={Y-self.offset_x}, y={X-self.offset_y}, offsetX={self.offset_x}, offsetY={self.offset_y}")
+            return [X-self.offset_y, Y-self.offset_x, Z-self.offset_z] 
     
        # update offset
     
@@ -134,12 +134,12 @@ class PhyPhoxFigure(MatplotlibChart):
                 y = self.lines[0].get_ydata() # this is Pitch
                 if type(y)==collections.deque: 
                     self.offset_y = y[-1]+self.offset_y
-                z = self.lines[1].get_ydata() # this is Roll
-                if type(z)==collections.deque: 
-                    self.offset_z = z[-1]+self.offset_z
-                x = self.lines[2].get_ydata() # this is Yaw
+                x = self.lines[1].get_ydata() # this is Yaw
                 if type(x)==collections.deque: 
                     self.offset_x = x[-1]+self.offset_x
+                z = self.lines[2].get_ydata() # this is Roll
+                if type(z)==collections.deque: 
+                    self.offset_z = z[-1]+self.offset_z
             
     # update Y axes limits
     def update_y_axes_limits(self,axis_limits: float):

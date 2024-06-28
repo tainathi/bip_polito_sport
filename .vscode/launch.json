@@ -6,7 +6,7 @@
             "name": "Python: Python",
             "type": "debugpy",
             "request": "launch",
-            "program": "retrieving_smartphone_data/main.py",
+            "program": "main.py",
             "console": "integratedTerminal"
         }
     ],

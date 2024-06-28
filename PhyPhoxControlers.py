@@ -147,7 +147,7 @@ class PhyPhoxAppBar(ft.AppBar):
         
         if self.leading:
             self.leading.disabled = not(self.leading.disabled)
-            for i in [0, 3, 4, 5]:
+            for i in [0, 2, 5, 6, 7]:
                 e.page.controls[0].actions[i].disabled = self.running_phyphox
             e.page.controls[0].update()
 
@@ -280,5 +280,4 @@ def timer_callback(start_stop_event: threading.Event, phyphox_chart: PhyPhoxFigu
 def get_dialog(text):
     return ft.AlertDialog(
         title=ft.Text(text),
-        on_dismiss=lambda e: print("Dialog dismissed!")
     )
