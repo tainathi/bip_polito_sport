@@ -197,7 +197,7 @@ class PhyPhoxAppBar(ft.AppBar):
         [pitch,roll,yaw] = self.phyphox_chart.retrieve_data_from_phyphox_response(x[:N],y[:N],z[:N],w[:N])
         
         if os.name == "nt": download_folder = f"{os.getenv('USERPROFILE')}\\Downloads\\"
-        else: download_folder = f"{os.getenv('HOME')}/Downloads" # PORT: For *Nix systems
+        else: download_folder = f"{os.getenv('HOME')}/Downloads/" # PORT: For *Nix systems
         
         field_names = ["time acc (s)", "x acc (m/s2)", "y acc (m/s2)", "z acc (m/s2)", "time (s)", "pitch (deg)", "roll (deg)", "yaw (deg)"]
         file_name = download_folder + "phyphox_data_" + datetime.now().strftime("%d%m%y_%H-%M-%S") + ".csv"
