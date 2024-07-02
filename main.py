@@ -66,7 +66,7 @@ def main(page: ft.Page):
             )
         ]
     ) 
-            
+    page.theme_mode=ft.ThemeMode.DARK
     page.add(
         phyphox_appbar,
         ft.Row(
@@ -98,7 +98,6 @@ def main(page: ft.Page):
             ]
         ),
         phyphox_chart
-        
     )
 
 ft.app(main)
