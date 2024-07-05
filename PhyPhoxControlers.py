@@ -266,14 +266,15 @@ def timer_callback(start_stop_event: threading.Event, phyphox_chart: PhyPhoxFigu
             case _:
                 response = requests.get(url="http://"+f"{phyphox_appbar.ip_address}:{phyphox_appbar.port}"+f"/get?x&y&z&w&acc_time",
                                     timeout=1).json()
-                
-        phyphox_appbar.last_time_instant = response["buffer"]["acc_time"]["buffer"][-1] # updating the threshold for retrieving phyphox data
-        phyphox_chart.update_lines(np.array(response["buffer"]["acc_time"]["buffer"]), # time vector
-                                   np.array(response["buffer"][constants.phyphox_buffers[phyphox_chart.experiment][0]]["buffer"]), # "x, acc or quaternion"
-                                   np.array(response["buffer"][constants.phyphox_buffers[phyphox_chart.experiment][1]]["buffer"]), # "y, acc or quaternion"
-                                   np.array(response["buffer"][constants.phyphox_buffers[phyphox_chart.experiment][2]]["buffer"]), # "z, acc or quaternion"
-                                   np.array([]) if phyphox_chart.experiment == 0 else np.array(response["buffer"][constants.phyphox_buffers[phyphox_chart.experiment][3]]["buffer"]), # "w, acc or quaternion"
-                                   )
+        
+        if len(response["buffer"]["acc_time"]["buffer"])>1:
+            phyphox_appbar.last_time_instant = response["buffer"]["acc_time"]["buffer"][-1] # updating the threshold for retrieving phyphox data
+            phyphox_chart.update_lines(np.array(response["buffer"]["acc_time"]["buffer"]), # time vector
+                                    np.array(response["buffer"][constants.phyphox_buffers[phyphox_chart.experiment][0]]["buffer"]), # "x, acc or quaternion"
+                                    np.array(response["buffer"][constants.phyphox_buffers[phyphox_chart.experiment][1]]["buffer"]), # "y, acc or quaternion"
+                                    np.array(response["buffer"][constants.phyphox_buffers[phyphox_chart.experiment][2]]["buffer"]), # "z, acc or quaternion"
+                                    np.array([]) if phyphox_chart.experiment == 0 else np.array(response["buffer"][constants.phyphox_buffers[phyphox_chart.experiment][3]]["buffer"]), # "w, acc or quaternion"
+                                    )
         time.sleep(1/constants.refresh_rate)
     
     
