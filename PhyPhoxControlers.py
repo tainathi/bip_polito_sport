@@ -267,7 +267,7 @@ def timer_callback(start_stop_event: threading.Event, phyphox_chart: PhyPhoxFigu
                 response = requests.get(url="http://"+f"{phyphox_appbar.ip_address}:{phyphox_appbar.port}"+f"/get?x&y&z&w&acc_time",
                                     timeout=1).json()
         
-        if len(response["buffer"]["acc_time"]["buffer"])>1:
+        if len(response["buffer"]["acc_time"]["buffer"])>0:
             phyphox_appbar.last_time_instant = response["buffer"]["acc_time"]["buffer"][-1] # updating the threshold for retrieving phyphox data
             phyphox_chart.update_lines(np.array(response["buffer"]["acc_time"]["buffer"]), # time vector
                                     np.array(response["buffer"][constants.phyphox_buffers[phyphox_chart.experiment][0]]["buffer"]), # "x, acc or quaternion"

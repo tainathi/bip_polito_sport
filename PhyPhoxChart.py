@@ -104,7 +104,7 @@ class PhyPhoxFigure(MatplotlibChart):
 
             t0 = +2.0 * (w * x + y * z)
             t1 = +1.0 - 2.0 * (x * x + ysqr)
-            X = np.degrees(np.arctan2(t0, t1))
+            X = -np.degrees(np.arctan2(t0, t1))
 
             t2 = +2.0 * (w * y - z * x)
 
