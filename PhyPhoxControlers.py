@@ -170,8 +170,8 @@ class PhyPhoxAppBar(ft.AppBar):
         
         try:
             # retrieving all data
-            response = requests.get(url="http://"+f"{self.ip_address}:{self.port}"+"/get?accX=fullX&accY=full&accZ=full&acc_time=full&x=full&y=full&z=full&w=full&t=full",timeout=10).json()
-        
+            response = requests.get(url="http://"+f"{self.ip_address}:{self.port}"+"/get?accX=full&accY=full&accZ=full&acc_time=full&x=full&y=full&z=full&w=full&t=full",timeout=10).json()
+            
         except requests.exceptions.RequestException as err:
             e.page.dialog=get_dialog(err)
             e.page.dialog.open=True
