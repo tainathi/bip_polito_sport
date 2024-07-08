@@ -114,7 +114,7 @@ class PhyPhoxAppBar(ft.AppBar):
     # check whether phyphox is ready for communicating
     def refresh_page(self, e): 
         try:
-            data = requests.get(url="http://"+f"{self.ip_address}:{self.port}"+"/config",timeout=1).json()
+            data = requests.get(url="http://"+f"{self.ip_address}:{self.port}"+"/config",timeout=5).json()
             sensors = [1 for sensor in list.copy(data["inputs"]) if sensor["source"] == "linear_acceleration" or sensor["source"] == "attitude"] # [1, 1] if both sensors are in experiment
             print(data["inputs"][0]["outputs"])
             print(data["inputs"][1]["outputs"])
@@ -131,8 +131,8 @@ class PhyPhoxAppBar(ft.AppBar):
             # self.phyphox_chart.create_update_experiment_figure()
             # self.phyphox_chart.update()
             try:
-                # self.clear_graph(self)
-                requests.get(url="http://"+f"{self.ip_address}:{self.port}"+"/control?cmd=start",timeout=1)
+                self.clear_graph(self)
+                requests.get(url="http://"+f"{self.ip_address}:{self.port}"+"/control?cmd=start",timeout=5)
                 time.sleep(0.2)
                 self.timer.start()
             except requests.exceptions.RequestException as err:
@@ -143,7 +143,7 @@ class PhyPhoxAppBar(ft.AppBar):
             self.start_stop_event = threading.Event(); self.start_stop_event.set()
             self.timer = threading.Thread(target=timer_callback, args=(self.start_stop_event,self.phyphox_chart, self))
             self.last_time_instant = 0
-            requests.get(url="http://"+f"{self.ip_address}:{self.port}"+"/control?cmd=stop",timeout=1)
+            requests.get(url="http://"+f"{self.ip_address}:{self.port}"+"/control?cmd=stop",timeout=5)
         
         if self.leading:
             self.leading.disabled = not(self.leading.disabled)
@@ -157,7 +157,7 @@ class PhyPhoxAppBar(ft.AppBar):
     # clear the graph 
     def clear_graph(self, e):
         try:
-            requests.get(url="http://"+f"{self.ip_address}:{self.port}"+"/control?cmd=clear",timeout=1)
+            requests.get(url="http://"+f"{self.ip_address}:{self.port}"+"/control?cmd=clear",timeout=5)
             self.phyphox_chart.create_update_experiment_figure()
             self.phyphox_chart.update()
         except requests.exceptions.RequestException as err:
@@ -257,15 +257,15 @@ def timer_callback(start_stop_event: threading.Event, phyphox_chart: PhyPhoxFigu
             case 0:
                 response = requests.get(url="http://"+f"{phyphox_appbar.ip_address}:{phyphox_appbar.port}"+f"/get?accX={phyphox_appbar.last_time_instant}|acc_time&"+
                                     f"accY={phyphox_appbar.last_time_instant}|acc_time&accZ={phyphox_appbar.last_time_instant}|acc_time&acc_time={phyphox_appbar.last_time_instant}|acc_time",
-                                    timeout=1).json()
+                                    timeout=5).json()
             case 1:
                 response = requests.get(url="http://"+f"{phyphox_appbar.ip_address}:{phyphox_appbar.port}"+f"/get?x={phyphox_appbar.last_time_instant}|acc_time&"+
                                     f"y={phyphox_appbar.last_time_instant}|acc_time&z={phyphox_appbar.last_time_instant}|acc_time&" + 
                                     f"w={phyphox_appbar.last_time_instant}|acc_time&acc_time={phyphox_appbar.last_time_instant}|acc_time",
-                                    timeout=1).json()
+                                    timeout=5).json()
             case _:
                 response = requests.get(url="http://"+f"{phyphox_appbar.ip_address}:{phyphox_appbar.port}"+f"/get?x&y&z&w&acc_time",
-                                    timeout=1).json()
+                                    timeout=5).json()
         
         if len(response["buffer"]["acc_time"]["buffer"])>0:
             phyphox_appbar.last_time_instant = response["buffer"]["acc_time"]["buffer"][-1] # updating the threshold for retrieving phyphox data
